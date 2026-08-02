@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>JVL Auditores Consultores — Auditoría · Contabilidad · Asesoría Tributaria</title>
   <meta name="description" content="JVL Auditores Consultores SPA — Servicios profesionales de auditoría, contabilidad, nómina y asesoría financiera en Chile.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1110,8 +1113,12 @@
     });
 
     /* ── WhatsApp & Email ── */
-    document.getElementById('whatsappBtn').addEventListener('click', () => {
-      window.open('https://wa.me/56984984538?text=' + encodeURIComponent('Hola, me gustaría consultar sobre los servicios de JVL Auditores Consultores.'), '_blank');
+    document.getElementById('whatsappBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const phone = '56984984538';
+      const message = 'Hola, me gustaría consultar sobre los servicios de JVL Auditores Consultores.';
+      const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(waLink, '_blank');
     });
     document.getElementById('emailBtn').addEventListener('click', () => {
       window.location.href = 'mailto:jonathanlemarie@gmail.com?subject=Consulta%20sobre%20servicios%20JVL%20Auditores&body=Hola%2C%20me%20gustar%C3%ADa%20consultar%20sobre%20sus%20servicios.';
