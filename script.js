@@ -175,26 +175,57 @@ function sendEmail() {
 
 // ═══ PERFORMANCE OPTIMIZATION ═══
 
-// Lazy load imágenes (si existen)
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src || img.src;
-                img.classList.add('loaded');
-                observer.unobserve(img);
-            }
-        });
+// Request Animation Frame para evitar forced reflow
+if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => {
+        // Lazy load imágenes
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            }, { threshold: 0.01 });
+            document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+        }
     });
-    document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+} else {
+    // Fallback para navegadores sin requestIdleCallback
+    window.addEventListener('load', () => {
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            }, { threshold: 0.01 });
+            document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+        }
+    });
 }
 
-// Preconectar a recursos externos
-const link = document.createElement('link');
-link.rel = 'preconnect';
-link.href = 'https://formsubmit.co';
-document.head.appendChild(link);
+// Preconectar a recursos externos (no-blocking)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        const link = document.createElement('link');
+        link.rel = 'preconnect';
+        link.href = 'https://formsubmit.co';
+        document.head.appendChild(link);
+    });
+} else {
+    const link = document.createElement('link');
+    link.rel = 'preconnect';
+    link.href = 'https://formsubmit.co';
+    document.head.appendChild(link);
+}
 
 // Logger para debugging
 console.log('JVL Auditores Consultores - Sitio web cargado correctamente');
