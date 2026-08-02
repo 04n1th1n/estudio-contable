@@ -42,14 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // Manejo del formulario de contacto
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    // Obtener datos del formulario
-    const formData = new FormData(this);
-    
+
     // Validar datos
     const inputs = this.querySelectorAll('input, textarea');
     let isValid = true;
-    
+
     inputs.forEach(input => {
         if (!input.value.trim()) {
             isValid = false;
@@ -58,31 +55,39 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
             input.style.borderColor = '';
         }
     });
-    
+
     if (!isValid) {
         alert('Por favor completa todos los campos');
         return;
     }
-    
-    // Simular envío del formulario
+
+    // Enviar a FormSubmit.co
     const button = this.querySelector('button');
-    const originalText = button.textContent;
-    button.textContent = 'Enviando...';
+    const originalHTML = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
     button.disabled = true;
-    
-    // Simulamos un delay de envío
-    setTimeout(() => {
-        // Mostrar mensaje de éxito
-        alert('¡Gracias por tu mensaje! Nos pondremos en contacto pronto.');
-        
-        // Resetear formulario
-        this.reset();
-        button.textContent = originalText;
+
+    const formData = new FormData(this);
+    fetch('https://formsubmit.co/jonathanlemarie@gmail.com', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('¡Gracias por tu mensaje! Nos pondremos en contacto pronto.');
+            this.reset();
+        } else {
+            alert('Hubo un error. Por favor intenta de nuevo.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error enviando tu mensaje. Intenta de nuevo.');
+    })
+    .finally(() => {
+        button.innerHTML = originalHTML;
         button.disabled = false;
-        
-        // Aquí irían las funciones para enviar datos reales a un servidor
-        console.log('Mensaje de contacto recibido');
-    }, 1500);
+    });
 });
 
 // Toggle del menú móvil
