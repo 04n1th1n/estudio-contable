@@ -8,6 +8,63 @@
   <meta http-equiv="Expires" content="0">
   <title>JVL Auditores Consultores — Auditoría · Contabilidad · Asesoría Tributaria</title>
   <meta name="description" content="JVL Auditores Consultores SPA — Servicios profesionales de auditoría, contabilidad, nómina y asesoría financiera en Chile.">
+
+  <!-- Open Graph & Social Media -->
+  <meta property="og:title" content="JVL Auditores Consultores — Auditoría · Contabilidad · Asesoría Tributaria">
+  <meta property="og:description" content="Servicios profesionales de auditoría, contabilidad, nómina y asesoría financiera en Chile. Más de 10 años de experiencia.">
+  <meta property="og:type" content="business.business">
+  <meta property="og:url" content="https://jvlauditoresconsultores.cl/">
+  <meta property="og:image" content="https://jvlauditoresconsultores.cl/og-image.png">
+  <meta property="og:site_name" content="JVL Auditores Consultores">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JVL Auditores Consultores">
+  <meta name="twitter:description" content="Auditoría, contabilidad y asesoría tributaria profesional en Chile">
+  <meta name="twitter:image" content="https://jvlauditoresconsultores.cl/og-image.png">
+
+  <!-- Schema.org LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "JVL Auditores Consultores",
+    "image": "https://jvlauditoresconsultores.cl/og-image.png",
+    "description": "Servicios profesionales de auditoría, contabilidad, nómina y asesoría financiera",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "CL",
+      "addressLocality": "Santiago",
+      "addressRegion": "Región Metropolitana"
+    },
+    "telephone": "+56984984538",
+    "email": "jonathanlemarie@gmail.com",
+    "url": "https://jvlauditoresconsultores.cl/",
+    "sameAs": ["https://www.facebook.com/jvlauditores", "https://www.linkedin.com/company/jvl-auditores"],
+    "priceRange": "$$",
+    "areaServed": ["CL"],
+    "knowsAbout": ["Auditoría", "Contabilidad", "NIIF", "Asesoría Tributaria", "Nómina"]
+  }
+  </script>
+
+  <!-- Schema.org Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "JVL Auditores Consultores",
+    "url": "https://jvlauditoresconsultores.cl/",
+    "logo": "https://jvlauditoresconsultores.cl/logo.png",
+    "foundingDate": "2014",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "telephone": "+56984984538",
+      "email": "jonathanlemarie@gmail.com"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -571,6 +628,30 @@
       max-width:320px;
     }
     .toast.show { transform:translateY(0); opacity:1; }
+
+    /* ══════════════════════════════════════════
+       WHATSAPP FLOTANTE
+    ══════════════════════════════════════════ */
+    .whatsapp-flotante {
+      position:fixed; bottom:2rem; right:2rem; z-index:998;
+      width:60px; height:60px; border-radius:50%;
+      background:#25D366; color:white;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.8rem; box-shadow:0 6px 20px rgba(37,211,102,0.4);
+      transition:var(--transition); text-decoration:none;
+      animation:pulseWA 2.5s infinite;
+    }
+    .whatsapp-flotante:hover {
+      background:#1ebe5c; transform:scale(1.15);
+      box-shadow:0 10px 30px rgba(37,211,102,0.6);
+    }
+    @keyframes pulseWA {
+      0%, 100% { transform:scale(1); }
+      50% { transform:scale(1.08); }
+    }
+    @media (max-width:768px) {
+      .whatsapp-flotante { bottom:1.5rem; right:1.5rem; width:55px; height:55px; font-size:1.6rem; }
+    }
   </style>
 </head>
 <body>
@@ -1043,6 +1124,15 @@
     <i class="fas fa-check-circle" style="color:var(--gold);margin-right:8px;"></i>
     ¡Mensaje enviado! Te contactaremos pronto.
   </div>
+
+  <!-- WhatsApp Flotante -->
+  <a href="https://wa.me/56984984538?text=Hola%20JVL%20Auditores%2C%20me%20gustar%C3%ADa%20consultar%20sobre%20sus%20servicios"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="whatsapp-flotante"
+     title="Chatea con nosotros en WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 
   <script>
     /* ── Navbar scroll ── */
