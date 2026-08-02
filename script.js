@@ -1,41 +1,36 @@
 // ===== FUNCIONALIDADES JAVASCRIPT =====
 
-// Smooth scroll y animaciones
+// ═══ OPTIMIZED: Evitar Forced Reflow ═══
+// Batching: Leer primero, escribir después (no en loop)
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Animación de scroll para elementos
+    // Batch 1: Setup observer
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
+        // Usar classList en lugar de style para evitar reflow
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                entry.target.classList.add('animate-in');
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observar cards de servicios
-    document.querySelectorAll('.servicio-card').forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.animationDelay = `${index * 0.1}s`;
-        observer.observe(card);
-    });
+    // Batch 2: Recopilar todos los elementos primero
+    const servicioCards = document.querySelectorAll('.servicio-card');
+    const porQueItems = document.querySelectorAll('.por-que-item');
+    const aboutItems = document.querySelectorAll('.about-item');
 
-    // Observar items de por qué nosotros
-    document.querySelectorAll('.por-que-item').forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.animationDelay = `${index * 0.1}s`;
-        observer.observe(item);
-    });
-
-    // Observar items sobre nosotros
-    document.querySelectorAll('.about-item').forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.animationDelay = `${index * 0.1}s`;
-        observer.observe(item);
+    // Batch 3: Escribir estilos en batch (una sola reflow)
+    const elements = Array.from(servicioCards).concat(Array.from(porQueItems)).concat(Array.from(aboutItems));
+    elements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.animationDelay = `${(index % 6) * 0.1}s`;
+        observer.observe(el);
     });
 });
 

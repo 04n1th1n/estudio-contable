@@ -1279,11 +1279,31 @@
   </script>
 
   <script>
-    /* ── Navbar scroll ── */
+    /* ── Navbar scroll (Optimized - RAF + Toggle) ── */
     const navbar = document.getElementById('navbar');
+    let ticking = false;
+
+    function updateNavbar() {
+      const isSolid = window.scrollY > 60;
+      const shouldBeSolid = navbar.classList.contains('solid');
+
+      // Solo cambiar si es necesario (evitar forced reflow)
+      if (isSolid && !shouldBeSolid) {
+        navbar.classList.remove('transparent');
+        navbar.classList.add('solid');
+      } else if (!isSolid && shouldBeSolid) {
+        navbar.classList.remove('solid');
+        navbar.classList.add('transparent');
+      }
+      ticking = false;
+    }
+
     window.addEventListener('scroll', () => {
-      navbar.className = window.scrollY > 60 ? 'navbar solid' : 'navbar transparent';
-    });
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    }, { passive: true });
 
     /* ── Mobile menu ── */
     const menuToggle = document.getElementById('menuToggle');
@@ -1310,7 +1330,7 @@
     }, { threshold: 0.12, rootMargin:'0px 0px -40px 0px' });
     revealEls.forEach(el => revealObs.observe(el));
 
-    /* ── Counter animation ── */
+    /* ── Counter animation (RAF optimized) ── */
     const counters = document.querySelectorAll('.counter');
     const counterObs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -1318,13 +1338,23 @@
           const el = entry.target;
           const target = +el.dataset.target;
           const duration = 1400;
-          const step = Math.ceil(duration / target);
           let current = 0;
-          const timer = setInterval(() => {
-            current += 1;
+          const startTime = performance.now();
+
+          function animateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            current = Math.ceil(progress * target);
             el.textContent = current;
-            if (current >= target) { el.textContent = target; clearInterval(timer); }
-          }, step);
+
+            if (progress < 1) {
+              requestAnimationFrame(animateCounter);
+            } else {
+              el.textContent = target;
+            }
+          }
+
+          requestAnimationFrame(animateCounter);
           counterObs.unobserve(el);
         }
       });
