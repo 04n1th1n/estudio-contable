@@ -173,7 +173,31 @@ function sendEmail() {
     window.location.href = url;
 }
 
+// ═══ PERFORMANCE OPTIMIZATION ═══
+
+// Lazy load imágenes (si existen)
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src || img.src;
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    });
+    document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+}
+
+// Preconectar a recursos externos
+const link = document.createElement('link');
+link.rel = 'preconnect';
+link.href = 'https://formsubmit.co';
+document.head.appendChild(link);
+
 // Logger para debugging
 console.log('JVL Auditores Consultores - Sitio web cargado correctamente');
 console.log('Email: jonathanlemarie@gmail.com');
 console.log('Teléfono: +56 9 8498 4538');
+console.log('Tiempo de carga:', performance.now().toFixed(2) + 'ms');

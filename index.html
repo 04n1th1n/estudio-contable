@@ -61,14 +61,122 @@
       "contactType": "Customer Service",
       "telephone": "+56984984538",
       "email": "jonathanlemarie@gmail.com"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "80",
+      "bestRating": "5",
+      "worstRating": "1"
     }
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Schema.org FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuánto cuesta un servicio de auditoría?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El costo varía según el tamaño y complejidad de tu empresa. Ofrecemos una consulta gratuita inicial para evaluar tus necesidades específicas. Contacta con nosotros para una cotización personalizada."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué es NIIF y por qué es importante?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "NIIF son las Normas Internacionales de Información Financiera que estandarizan la contabilidad a nivel mundial. Es importante para empresas que operan internacionalmente o que requieren financiamiento externo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Pueden asesorar a empresas pequeñas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, trabajamos con empresas de todos los tamaños, desde pymes hasta grupos empresariales. Adaptamos nuestros servicios a las necesidades y presupuesto de cada cliente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuál es el tiempo de respuesta para consultas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Respondemos consultas dentro de 24-48 horas hábiles. Para temas urgentes, puedes contactarnos por WhatsApp al +56 9 8498 4538."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Ofrecen asesoría remota?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, ofrecemos servicios completamente remotos para clientes en cualquier parte de Chile. Utilizamos tecnología moderna para facilitar la comunicación y el intercambio de documentos."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Schema.org BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Inicio",
+        "item": "https://jvlauditoresconsultores.cl/#inicio"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Servicios",
+        "item": "https://jvlauditoresconsultores.cl/#servicios"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Especialidades",
+        "item": "https://jvlauditoresconsultores.cl/#servicios-detallados"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Por Qué Nosotros",
+        "item": "https://jvlauditoresconsultores.cl/#por-que"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Contacto",
+        "item": "https://jvlauditoresconsultores.cl/#contacto"
+      }
+    ]
+  }
+  </script>
+
+  <!-- PWA & Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0C1B3A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+
+  <!-- Fonts - Preload & Prefetch -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="prefetch" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Icons & Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 
   <style>
     /* ══════════════════════════════════════════
