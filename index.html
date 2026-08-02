@@ -169,16 +169,19 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="/icon-192.png">
 
-  <!-- Fonts - Optimized Loading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <!-- Fonts - Parallel Loading (No blockers) -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" media="screen">
+  <link rel="alternate" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" type="text/css" media="screen">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap"></noscript>
 
-  <!-- Icons - Async Loading -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <!-- Icons - DNS Prefetch + Defer Loading -->
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'; this.onload=null;">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
   <!-- Critical CSS (Inline para LCP rápido) -->
@@ -1253,6 +1256,27 @@
      title="Chatea con nosotros en WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <script>
+    // ═══ BREAK DEPENDENCY CHAIN ═══
+    // Cargar recursos no-critical después del render
+    if (window.requestIdleCallback) {
+      requestIdleCallback(() => {
+        // FontAwesome async (ya en media=print, solo cambiar media)
+        const faLink = document.querySelector('link[href*="font-awesome"]');
+        if (faLink && faLink.media === 'print') {
+          faLink.media = 'all';
+        }
+      }, { timeout: 3000 });
+    } else {
+      window.addEventListener('load', () => {
+        const faLink = document.querySelector('link[href*="font-awesome"]');
+        if (faLink && faLink.media === 'print') {
+          faLink.media = 'all';
+        }
+      });
+    }
+  </script>
 
   <script>
     /* ── Navbar scroll ── */
