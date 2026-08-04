@@ -35,6 +35,26 @@ Skills entrenados:
 **Estado:** Entrenamiento completado ✅  
 **Próximo:** Aplicar en Mejora #1
 
+### 2. AGENT-SKILLS Integration (24 production-grade skills)
+**Archivo:** `HERMES_AGENT_SKILLS_INTEGRATION.md` (en `~/.claude/projects/`)
+
+24 Skills organizadas en 6 fases:
+- **DEFINE** (3 skills): interview-me, idea-refine, spec-driven-development
+- **PLAN** (1 skill): planning-and-task-breakdown
+- **BUILD** (7 skills): incremental-implementation, test-driven-development, context-engineering, etc.
+- **VERIFY** (2 skills): browser-testing-with-devtools, debugging-and-error-recovery
+- **REVIEW** (4 skills): code-review-and-quality, security-and-hardening, performance-optimization, code-simplification
+- **SHIP** (6 skills): git-workflow-and-versioning, ci-cd-and-automation, shipping-and-launch, etc.
+
+**8 Comandos slash:**
+```
+/spec → /plan → /build → /test → /review → /ship
+```
++ `/code-simplify` (refactorización) + `/webperf` (auditoría)
+
+**Estado:** Instalación en progreso ✅ (npx skills add...)  
+**Integración en Mejora #1:** Hermes usará `/plan` → `/build` (TDD) → `/review` → `/ship`
+
 ---
 
 ## 🚀 PROYECTO ACTUAL: JVL Auditores Consultores
