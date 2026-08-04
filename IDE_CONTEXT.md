@@ -108,14 +108,22 @@ Tiempo: ~20 minutos
 
 ### Estado Actual
 ```
-[ ] Paso 1: Git Setup
-[ ] Paso 2: Análisis
-[ ] Paso 3: Implementación
-[ ] Paso 4: Verificación local
-[ ] Paso 5: Commit
-[ ] Paso 6: Push
-[ ] Paso 7: PR
-[ ] Paso 8: Merge
+[✅] Paso 0: SPEC escrita (agent-skills /spec completado)
+[ ] Paso 1: Git Setup → rama feat/cta-flotante
+[ ] Paso 2: Análisis → código actual
+[ ] Paso 3: Implementación → HTML + CSS + JS
+[ ] Paso 4: Verificación local → browser testing
+[ ] Paso 5: Commit → commits atómicos
+[ ] Paso 6: Push → GitHub
+[ ] Paso 7: PR → pull request
+[ ] Paso 8: Merge → a main
+
+**SPEC.md contenido:**
+- Objetivo: +15-20% conversión
+- Trigger: 30% scroll
+- Responsive: mobile (icon) / desktop (icon+label)
+- Z-index: 997 (debajo WhatsApp 998)
+- QA: 9 criterios de aceptación
 ```
 
 ---
