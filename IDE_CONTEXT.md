@@ -109,14 +109,15 @@ Tiempo: ~20 minutos
 ### Estado Actual
 ```
 [✅] Paso 0: SPEC escrita (agent-skills /spec completado)
-[ ] Paso 1: Git Setup → rama feat/cta-flotante
-[ ] Paso 2: Análisis → código actual
-[ ] Paso 3: Implementación → HTML + CSS + JS
-[ ] Paso 4: Verificación local → browser testing
-[ ] Paso 5: Commit → commits atómicos
-[ ] Paso 6: Push → GitHub
-[ ] Paso 7: PR → pull request
-[ ] Paso 8: Merge → a main
+[✅] Paso 1: Git Setup → rama feat/cta-flotante activa
+[✅] Paso 2: Plan → /plan generó task breakdown
+[✅] Paso 3: Implementación → /build auto completado (HTML + CSS + JS)
+[ ] Paso 4: Verificación → /review (5-axis quality gate)
+[ ] Paso 5: Testing → /test (browser testing)
+[ ] Paso 6: Commit → commits atómicos
+[ ] Paso 7: Push → GitHub
+[ ] Paso 8: PR → pull request
+[ ] Paso 9: Merge → a main
 
 **SPEC.md contenido:**
 - Objetivo: +15-20% conversión

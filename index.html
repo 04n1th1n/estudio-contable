@@ -791,6 +791,36 @@
     @media (max-width:768px) {
       .whatsapp-flotante { bottom:1.5rem; right:1.5rem; width:55px; height:55px; font-size:1.6rem; }
     }
+
+    /* ══════════════════════════════════════════
+       CTA FLOTANTE: Solicitar Consulta
+    ══════════════════════════════════════════ */
+    .cta-flotante {
+      position:fixed; bottom:5.5rem; right:2rem; z-index:997;
+      width:60px; height:60px; border-radius:50%;
+      background:linear-gradient(135deg, var(--navy), var(--navy-light));
+      color:var(--gold);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.6rem; box-shadow:0 6px 20px rgba(12,27,58,0.4);
+      transition:var(--transition); text-decoration:none; cursor:pointer;
+      opacity:0; transform:translateY(20px); pointer-events:none;
+    }
+    .cta-flotante.visible {
+      opacity:1; transform:translateY(0); pointer-events:auto;
+    }
+    .cta-flotante:hover {
+      background:linear-gradient(135deg, var(--gold), var(--gold-light));
+      color:var(--navy); transform:scale(1.15);
+      box-shadow:0 10px 30px rgba(196,150,58,0.5);
+    }
+    .cta-label { display:none; }
+    @media (min-width:768px) {
+      .cta-flotante { width:auto; padding:12px 16px; border-radius:var(--radius-sm); }
+      .cta-label { display:inline; margin-left:8px; font-size:0.9rem; font-weight:600; }
+    }
+    @media (max-width:767px) {
+      .cta-flotante { bottom:4.7rem; }
+    }
   </style>
 </head>
 <body>
@@ -1273,6 +1303,14 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <!-- CTA Flotante: Solicitar Consulta -->
+  <a href="#contacto"
+     class="cta-flotante"
+     title="Solicitar Consulta">
+    <i class="fas fa-calendar-check"></i>
+    <span class="cta-label">Solicitar Consulta</span>
+  </a>
+
   <script>
     // ═══ BREAK DEPENDENCY CHAIN ═══
     // Cargar recursos no-critical después del render
@@ -1423,6 +1461,21 @@
     document.getElementById('emailBtn').addEventListener('click', () => {
       window.location.href = 'mailto:jonathanlemarie@gmail.com?subject=Consulta%20sobre%20servicios%20JVL%20Auditores&body=Hola%2C%20me%20gustar%C3%ADa%20consultar%20sobre%20sus%20servicios.';
     });
+
+    /* ── CTA Flotante: Mostrar después de scrollear 30% ── */
+    const ctaFlotante = document.querySelector('.cta-flotante');
+    const showCTAAtScroll = () => {
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 30) {
+        if (!ctaFlotante.classList.contains('visible')) {
+          ctaFlotante.classList.add('visible');
+        }
+      } else {
+        ctaFlotante.classList.remove('visible');
+      }
+    };
+    window.addEventListener('scroll', showCTAAtScroll, { passive: true });
+    showCTAAtScroll();
   </script>
 </body>
 </html>
