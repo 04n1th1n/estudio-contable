@@ -821,6 +821,74 @@
     @media (max-width:767px) {
       .cta-flotante { bottom:4.7rem; }
     }
+
+    /* ══════════════════════════════════════════
+       BANNER NUBOX: Beneficio Exclusivo
+    ══════════════════════════════════════════ */
+    .banner-nubox {
+      position:fixed; bottom:1rem; left:50%; transform:translate(-50%,150%);
+      z-index:996; width:min(92vw,680px);
+      background:var(--navy); color:var(--white);
+      border-left:4px solid var(--gold);
+      border-radius:var(--radius-sm);
+      box-shadow:0 12px 40px rgba(12,27,58,0.45);
+      padding:14px 16px 14px 18px;
+      display:flex; align-items:center; gap:16px;
+      transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .banner-nubox.visible { transform:translate(-50%,0); }
+    .banner-nubox .banner-content { flex:1; min-width:0; }
+    .banner-nubox .banner-title {
+      margin:0 0 4px; font-size:0.95rem; font-weight:700;
+      color:var(--gold); letter-spacing:0.02em;
+    }
+    .banner-nubox .banner-text {
+      margin:0; font-size:0.85rem; line-height:1.5; opacity:0.95;
+    }
+    .banner-nubox .banner-text strong { color:var(--gold-light); }
+    .banner-nubox .banner-terms { font-size:0.7rem; opacity:0.85; margin:6px 0 0; cursor:pointer; }
+    .banner-nubox .banner-terms summary { color:var(--gold-light); text-decoration:underline; outline:none; }
+    .banner-nubox .banner-terms summary::-webkit-details-marker { display:none; }
+    .banner-nubox .banner-terms summary::before { content:"▸ "; }
+    .banner-nubox .banner-terms[open] summary::before { content:"▾ "; }
+    .banner-nubox .banner-terms-list {
+      margin:6px 0 0; padding-left:1.1rem; color:rgba(255,255,255,0.85);
+      line-height:1.6;
+    }
+    .banner-nubox .banner-terms-list strong { color:var(--gold-light); }
+    .banner-nubox .banner-cta {
+      flex-shrink:0; display:inline-block;
+      background:linear-gradient(135deg, var(--gold), var(--gold-light));
+      color:var(--navy); font-weight:700; font-size:0.85rem;
+      padding:10px 18px; border-radius:var(--radius-sm);
+      text-decoration:none; white-space:nowrap;
+      box-shadow:0 6px 20px rgba(196,150,58,0.4);
+      transition:var(--transition);
+    }
+    .banner-nubox .banner-cta:hover {
+      transform:translateY(-2px);
+      box-shadow:0 10px 28px rgba(196,150,58,0.55);
+    }
+    .banner-nubox .banner-close {
+      flex-shrink:0; width:28px; height:28px;
+      background:rgba(255,255,255,0.08); border:none;
+      color:rgba(255,255,255,0.7); border-radius:50%;
+      font-size:1.1rem; line-height:1; cursor:pointer;
+      transition:var(--transition);
+    }
+    .banner-nubox .banner-close:hover {
+      background:rgba(196,150,58,0.25); color:var(--gold-light);
+    }
+    @media (max-width:767px) {
+      .banner-nubox {
+        flex-direction:column; align-items:stretch; gap:10px;
+        width:calc(100vw - 2rem); bottom:0.8rem; padding:14px;
+      }
+      .banner-nubox .banner-cta { text-align:center; }
+      body.banner-activo .cta-flotante { bottom:10.5rem; }
+    }
+    body.banner-activo .cta-flotante { bottom:7.5rem; }
+    body.banner-activo .whatsapp-flotante { bottom:2rem; }
   </style>
 </head>
 <body>
@@ -1311,6 +1379,27 @@
     <span class="cta-label">Solicitar Consulta</span>
   </a>
 
+  <!-- Banner Nubox: Beneficio Exclusivo -->
+  <div class="banner-nubox" id="bannerNubox" role="dialog" aria-label="Beneficio exclusivo Nubox">
+    <div class="banner-content">
+      <p class="banner-title">Beneficio Exclusivo para Nuevos Clientes</p>
+      <p class="banner-text">Contrata cualquier producto de Nubox y recibe <strong>3 meses de contabilidad sin costo</strong> en JVL Auditores.</p>
+      <details class="banner-terms">
+        <summary>Ver términos y condiciones</summary>
+        <ol class="banner-terms-list">
+          <li>Promoción válida solo para nuevas contrataciones de clientes que <strong>no</strong> tengan una suscripción activa previa en Nubox.</li>
+          <li>Sujeto a la contratación de cualquier producto de Nubox.</li>
+          <li>El beneficio se gestiona internamente por JVL Auditores Consultores con el proveedor.</li>
+        </ol>
+      </details>
+    </div>
+    <a href="https://wa.me/56984984538?text=Hola%2C%20me%20gustar%C3%ADa%20contratar%20Nubox%20y%20aprovechar%20el%20beneficio%20de%203%20meses%20de%20contabilidad%20gratuita%20en%20JVL%20Auditores."
+       target="_blank"
+       rel="noopener noreferrer"
+       class="banner-cta">Contratar Nubox</a>
+    <button type="button" class="banner-close" aria-label="Cerrar banner">×</button>
+  </div>
+
   <script>
     // ═══ BREAK DEPENDENCY CHAIN ═══
     // Cargar recursos no-critical después del render
@@ -1476,6 +1565,56 @@
     };
     window.addEventListener('scroll', showCTAAtScroll, { passive: true });
     showCTAAtScroll();
+
+    /* ── Banner Nubox: Beneficio Exclusivo ── */
+    const bannerNubox = document.getElementById('bannerNubox');
+    const BANNER_COOKIE = 'nubox_banner_dismissed';
+    let atContact = false;
+
+    const bannerClosedThisSession = () => document.cookie.split(';').some(c => c.trim().startsWith(BANNER_COOKIE + '='));
+
+    const showBanner = () => {
+      if (atContact || bannerClosedThisSession()) return;
+      bannerNubox.classList.add('visible');
+      document.body.classList.add('banner-activo');
+    };
+    const hideBanner = () => {
+      bannerNubox.classList.remove('visible');
+      document.body.classList.remove('banner-activo');
+    };
+    const dismissBanner = () => {
+      document.cookie = `${BANNER_COOKIE}=1; max-age=86400; path=/`;
+      hideBanner();
+    };
+
+    bannerNubox.querySelector('.banner-close').addEventListener('click', dismissBanner);
+
+    const showBannerAfterScroll = () => {
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 40) {
+        showBanner();
+        window.removeEventListener('scroll', showBannerAfterScroll);
+      }
+    };
+    window.addEventListener('scroll', showBannerAfterScroll, { passive: true });
+
+    setTimeout(showBanner, 15000);
+
+    const contactSection = document.getElementById('contacto');
+    if (contactSection && 'IntersectionObserver' in window) {
+      const bannerContactObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            atContact = true;
+            hideBanner();
+            window.removeEventListener('scroll', showBannerAfterScroll);
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -50% 0px' });
+      bannerContactObs.observe(contactSection);
+    }
+
+    setTimeout(() => { if (bannerNubox.classList.contains('visible')) hideBanner(); }, 30000);
   </script>
 </body>
 </html>
