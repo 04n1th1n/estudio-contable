@@ -1573,17 +1573,8 @@
 
     /* ── Banner Nubox: Beneficio Exclusivo ── */
     const bannerNubox = document.getElementById('bannerNubox');
-    const BANNER_COOKIE = 'nubox_banner_dismissed';
-
-    const bannerClosedThisSession = () => document.cookie.split(';').some(c => c.trim().startsWith(BANNER_COOKIE + '='));
-
-    if (bannerClosedThisSession()) {
-      bannerNubox.classList.remove('visible');
-      document.body.classList.remove('banner-activo');
-    }
 
     bannerNubox.querySelector('.banner-close').addEventListener('click', () => {
-      document.cookie = `${BANNER_COOKIE}=1; max-age=86400; path=/`;
       bannerNubox.classList.remove('visible');
       document.body.classList.remove('banner-activo');
     });
