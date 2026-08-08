@@ -292,18 +292,24 @@
     .navbar-brand { display:flex; align-items:center; gap:12px; }
     .brand-icon {
       width:40px; height:40px; border-radius:8px;
-      background:var(--gold);
+      background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-light) 100%);
+      background-size:200% 200%;
       display:flex; align-items:center; justify-content:center;
       color:var(--navy); font-size:1.1rem; font-weight:700;
       flex-shrink:0;
+      animation:goldShimmer 5s ease-in-out infinite;
     }
     .brand-text .name {
       font-family:var(--font-display); font-size:1.25rem; font-weight:700;
       color:var(--white); letter-spacing:0.03em; line-height:1.1;
     }
     .brand-text .sub {
-      font-size:0.65rem; color:var(--gold); letter-spacing:0.12em;
+      font-size:0.65rem; letter-spacing:0.12em;
       text-transform:uppercase; font-weight:500;
+      background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-light) 100%);
+      background-size:200% 200%;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      animation:goldShimmer 5s ease-in-out infinite;
     }
 
     .nav-links { display:flex; gap:2.25rem; align-items:center; }
@@ -381,8 +387,32 @@
       font-family:var(--font-display); font-size:clamp(2.8rem,5vw,4.2rem);
       font-weight:600; line-height:1.12; color:var(--white);
       margin-bottom:1.5rem; letter-spacing:-0.01em;
+      transform-style:preserve-3d;
+      text-shadow:
+        0 1px 0 rgba(255,255,255,0.06),
+        0 2px 1px rgba(0,0,0,0.15),
+        0 6px 18px rgba(0,0,0,0.30);
+      animation:heroTitleIn 1s cubic-bezier(0.22,1,0.36,1) 0.15s both;
     }
-    .hero h1 em { font-style:italic; color:var(--gold-light); }
+    .hero h1 em {
+      font-style:italic;
+      background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-light) 100%);
+      background-size:200% 200%;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow:none;
+      animation:goldShimmer 5s ease-in-out 1.2s infinite;
+    }
+    @keyframes heroTitleIn {
+      from { opacity:0; transform:perspective(800px) translateY(46px) rotateX(14deg); filter:blur(10px); }
+      to   { opacity:1; transform:perspective(800px) translateY(0) rotateX(0deg);   filter:blur(0); }
+    }
+    @keyframes goldShimmer {
+      0%,100% { background-position:0% 50%; }
+      50%     { background-position:100% 50%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero h1, .hero h1 em, .brand-icon, .brand-text .sub { animation:none; }
+    }
 
     .hero p {
       font-size:1.1rem; color:rgba(255,255,255,0.72); line-height:1.8;
@@ -895,6 +925,15 @@
     body.banner-activo .cta-flotante { bottom:7.5rem; }
     body.banner-activo .whatsapp-flotante { bottom:2rem; }
   </style>
+
+  <!-- Google Ads Conversion Tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18373188585"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18373188585');
+  </script>
 </head>
 <body>
 
